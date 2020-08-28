@@ -251,3 +251,58 @@ rankTest('voyageProfitFactor case 12. should return 4 given zone is east-indies 
 
   t.is(result, 3);
 })
+
+
+rankTest('captainHistoryRisk case 13. should 4 given history length is 3 and history profit < 0 is 1 and voyage zone is china and history hasChina.', t => {
+  const voyage = {
+    zone: 'china',
+    length: 10,
+  };
+  const history = [
+    {
+      zone: 'east-indies',
+      profit: 5,
+    },{
+      zone: 'west-indies',
+      profit: -1,
+    },{
+      zone: 'china',
+      profit: 2,
+    },
+  ];
+
+  const result = captainHistoryRisk(voyage, history)
+
+  t.is(result, 4);
+})
+
+rankTest('captainHistoryRisk case 14. should return 1 given history length is 5 and history profit < 0 is 0 and voyage zone is china and history no hasChina.', t => {
+  const voyage = {
+    zone: 'china',
+    length: 10,
+  };
+  const history = [
+    {
+      zone: 'east-indies',
+      profit: 5,
+    },{
+      zone: 'west-indies',
+      profit: 1,
+    },{
+      zone: 'west-indies1',
+      profit: 2,
+    },
+    {
+      zone: 'west-indies2',
+      profit: 2,
+    },
+    {
+      zone: 'west-indies3',
+      profit: 2,
+    },
+  ];
+
+  const result = captainHistoryRisk(voyage, history)
+
+  t.is(result, 1);
+})
