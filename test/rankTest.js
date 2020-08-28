@@ -306,3 +306,94 @@ rankTest('captainHistoryRisk case 14. should return 1 given history length is 5 
 
   t.is(result, 1);
 })
+
+rankTest('rating case 15. should return A given ..', t => {
+  const voyage = {
+    zone: 'china',
+    length: 13,
+  };
+  const history = [
+    {
+      zone: 'east-indies',
+      profit: 5,
+    },
+    {
+      zone: 'west-indies',
+      profit: 15,
+    },
+    {
+      zone: 'east-indies1',
+      profit: 2,
+    },
+    {
+      zone: 'west-africa',
+      profit: 7,
+    },
+    {
+      zone: 'west-indies1',
+      profit: 15,
+    },
+    {
+      zone: 'china',
+      profit: 7,
+    },
+    {
+      zone: 'west-indies2',
+      profit: 15,
+    },
+    {
+      zone: 'west-africa2',
+      profit: 7,
+    },
+    {
+      zone: 'west-africa3',
+      profit: 7,
+    },
+    {
+      zone: 'west-africa4',
+      profit: 7,
+    },
+    {
+      zone: 'west-africa5',
+      profit: 7,
+    }
+  ];
+
+  const result = rating(voyage, history)
+
+  t.is(result, 'A');
+})
+
+
+rankTest('rating case 16. should return B given .', t => {
+  const voyage = {
+    zone: 'west-indies',
+    length: 15,
+  };
+  const history = [
+    {
+      zone: 'east-indies',
+      profit: 5,
+    },
+    {
+      zone: 'west-indies',
+      profit: 15,
+    },
+    {
+      zone: 'east-indies1',
+      profit: 2,
+    },
+    {
+      zone: 'west-africa',
+      profit: 7,
+    },
+    {
+      zone: 'west-indies1',
+      profit: 15,
+    }
+  ];
+
+  const result = rating(voyage, history)
+
+  t.is(result, 'B');
+})
