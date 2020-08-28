@@ -14,10 +14,10 @@ function handleVoyageLength(voyage, result) {
 }
 
 function handleVoyageZone(voyage, result) {
-    if (voyageZone.includes(voyage.zone)) {
-        result += 4;
-    }
-    return result;
+  if (voyageZone.includes(voyage.zone)) {
+    result += 4;
+  }
+  return result;
 }
 
 function voyageRisk (voyage) {
@@ -31,11 +31,16 @@ function hasChina (history) {
   return history.some(v => 'china' === v.zone);
 }
 
-function captainHistoryRisk (voyage, history) {
-  let result = 1;
+function handleHistoryLength(history, result) {
   if (history.length < 5) {
     result += 4;
   }
+  return result;
+}
+
+function captainHistoryRisk (voyage, history) {
+  let result = 1;
+  result = handleHistoryLength(history, result);
   result += history.filter(v => v.profit < 0).length;
   if (voyage.zone === 'china' && hasChina(history)) {
     result -= 2;
