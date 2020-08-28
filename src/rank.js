@@ -3,17 +3,27 @@ const voyageZone = [
   'east-indies',
 ];
 
+function handleVoyageLength(voyage, result) {
+    if (voyage.length > 4) {
+        result += 2;
+    }
+    if (voyage.length > 8) {
+        result += voyage.length - 8;
+    }
+    return result;
+}
+
+function handleVoyageZone(voyage, result) {
+    if (voyageZone.includes(voyage.zone)) {
+        result += 4;
+    }
+    return result;
+}
+
 function voyageRisk (voyage) {
   let result = 1;
-  if (voyage.length > 4) {
-    result += 2;
-  }
-  if (voyage.length > 8) {
-    result += voyage.length - 8;
-  }
-  if (voyageZone.includes(voyage.zone)) {
-    result += 4;
-  }
+    result = handleVoyageLength(voyage, result);
+    result = handleVoyageZone(voyage, result);
   return result;
 }
 
