@@ -38,11 +38,20 @@ function handleHistoryLength(history, result) {
   return result;
 }
 
+function filterHistoryByPositiveProfit(result, history) {
+  result += history.filter(v => v.profit < 0).length;
+  return result;
+}
+
+function isVayageChina(voyage) {
+  return voyage.zone === 'china';
+}
+
 function captainHistoryRisk (voyage, history) {
   let result = 1;
   result = handleHistoryLength(history, result);
-  result += history.filter(v => v.profit < 0).length;
-  if (voyage.zone === 'china' && hasChina(history)) {
+  result = filterHistoryByPositiveProfit(result, history);
+  if (isVayageChina(voyage) && hasChina(history)) {
     result -= 2;
   }
   return Math.max(result, 0);
