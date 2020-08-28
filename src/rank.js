@@ -65,34 +65,43 @@ function isAndHadInChina(voyage, history) {
   return voyage.zone === 'china' && hasChina(history);
 }
 
+function calculateProfitByVoyageZone(voyage, result) {
+    if (isVoyageChina(voyage)) {
+        result += 1;
+    }
+    if (isVoyageInEastInies(voyage)) {
+        result += 1;
+    }
+    return result;
+}
+
+function calculateProfitByVoyageAndHistory(voyage, history, result) {
+    if (isAndHadInChina(voyage, history)) {
+        result += 3;
+        if (history.length > 10) {
+            result += 1;
+        }
+        if (voyage.length > 12) {
+            result += 1;
+        }
+        if (voyage.length > 18) {
+            result -= 1;
+        }
+    } else {
+        if (history.length > 8) {
+            result += 1;
+        }
+        if (voyage.length > 14) {
+            result -= 1;
+        }
+    }
+    return result;
+}
+
 function voyageProfitFactor (voyage, history) {
   let result = 2;
-  if (isVoyageChina(voyage)) {
-    result += 1;
-  }
-  if (isVoyageInEastInies(voyage)) {
-    result += 1;
-  }
-  if (isAndHadInChina(voyage, history)) {
-    result += 3;
-    if (history.length > 10) {
-      result += 1;
-    }
-    if (voyage.length > 12) {
-      result += 1;
-    }
-    if (voyage.length > 18) {
-      result -= 1;
-    }
-  }
-  else {
-    if (history.length > 8) {
-      result += 1;
-    }
-    if (voyage.length > 14) {
-      result -= 1;
-    }
-  }
+    result = calculateProfitByVoyageZone(voyage, result);
+    result = calculateProfitByVoyageAndHistory(voyage, history, result);
   return result;
 }
 
