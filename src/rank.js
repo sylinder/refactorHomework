@@ -1,6 +1,6 @@
 const voyageZone = [
-  'china',
-  'east-indies',
+    'china',
+    'east-indies',
 ];
 
 function handleVoyageLength(voyage, result) {
@@ -14,55 +14,55 @@ function handleVoyageLength(voyage, result) {
 }
 
 function handleVoyageZone(voyage, result) {
-  if (voyageZone.includes(voyage.zone)) {
-    result += 4;
-  }
-  return result;
+    if (voyageZone.includes(voyage.zone)) {
+        result += 4;
+    }
+    return result;
 }
 
-function voyageRisk (voyage) {
-  let result = 1;
+function voyageRisk(voyage) {
+    let result = 1;
     result = handleVoyageLength(voyage, result);
     result = handleVoyageZone(voyage, result);
-  return result;
+    return result;
 }
 
-function hasChina (history) {
-  return history.some(v => 'china' === v.zone);
+function hasChina(history) {
+    return history.some(v => 'china' === v.zone);
 }
 
 function handleHistoryLength(history, result) {
-  if (history.length < 5) {
-    result += 4;
-  }
-  return result;
+    if (history.length < 5) {
+        result += 4;
+    }
+    return result;
 }
 
 function filterHistoryByPositiveProfit(result, history) {
-  result += history.filter(v => v.profit < 0).length;
-  return result;
+    result += history.filter(v => v.profit < 0).length;
+    return result;
 }
 
 function isVoyageChina(voyage) {
-  return voyage.zone === 'china';
+    return voyage.zone === 'china';
 }
 
-function captainHistoryRisk (voyage, history) {
-  let result = 1;
-  result = handleHistoryLength(history, result);
-  result = filterHistoryByPositiveProfit(result, history);
-  if (isVoyageChina(voyage) && hasChina(history)) {
-    result -= 2;
-  }
-  return Math.max(result, 0);
+function captainHistoryRisk(voyage, history) {
+    let result = 1;
+    result = handleHistoryLength(history, result);
+    result = filterHistoryByPositiveProfit(result, history);
+    if (isVoyageChina(voyage) && hasChina(history)) {
+        result -= 2;
+    }
+    return Math.max(result, 0);
 }
 
 function isVoyageInEastInies(voyage) {
-  return voyage.zone === 'east-indies';
+    return voyage.zone === 'east-indies';
 }
 
 function isAndHadInChina(voyage, history) {
-  return voyage.zone === 'china' && hasChina(history);
+    return voyage.zone === 'china' && hasChina(history);
 }
 
 function calculateProfitByVoyageZone(voyage, result) {
@@ -98,11 +98,11 @@ function calculateProfitByVoyageAndHistory(voyage, history, result) {
     return result;
 }
 
-function voyageProfitFactor (voyage, history) {
-  let result = 2;
+function voyageProfitFactor(voyage, history) {
+    let result = 2;
     result = calculateProfitByVoyageZone(voyage, result);
     result = calculateProfitByVoyageAndHistory(voyage, history, result);
-  return result;
+    return result;
 }
 
 function getFinalResult(vpf, vr, chr) {
@@ -113,39 +113,39 @@ function getFinalResult(vpf, vr, chr) {
     }
 }
 
-function rating (voyage, history) {
-  const vpf = voyageProfitFactor(voyage, history);
-  const vr = voyageRisk(voyage);
-  const chr = captainHistoryRisk(voyage, history);
-  return getFinalResult(vpf, vr, chr);
+function rating(voyage, history) {
+    const vpf = voyageProfitFactor(voyage, history);
+    const vr = voyageRisk(voyage);
+    const chr = captainHistoryRisk(voyage, history);
+    return getFinalResult(vpf, vr, chr);
 }
 
 module.exports = {
-  voyageRisk,
-  captainHistoryRisk,
-  voyageProfitFactor,
-  rating
+    voyageRisk,
+    captainHistoryRisk,
+    voyageProfitFactor,
+    rating
 };
 
 const voyage = {
-  zone: 'west-indies',
-  length: 10,
+    zone: 'west-indies',
+    length: 10,
 };
 const history = [
-  {
-    zone: 'east-indies',
-    profit: 5,
-  },{
-    zone: 'west-indies',
-    profit: 15,
-  },{
-    zone: 'china',
-    profit: -2,
-  },
-  {
-    zone: 'west-africa',
-    profit: 7,
-  },
+    {
+        zone: 'east-indies',
+        profit: 5,
+    }, {
+        zone: 'west-indies',
+        profit: 15,
+    }, {
+        zone: 'china',
+        profit: -2,
+    },
+    {
+        zone: 'west-africa',
+        profit: 7,
+    },
 ];
 const myRating = rating(voyage, history);
 console.log(`myRating: ${myRating}`);
