@@ -12,7 +12,7 @@ function voyageRisk (voyage) {
   ].includes(voyage.zone)) {
     result += 4;
   }
-  return Math.max(result, 0);
+  return result;
 }
 
 function hasChina (history) {
